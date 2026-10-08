@@ -4,11 +4,10 @@ subtitle: "The coefficient lattice and its staircase"
 author: "Hob Nilre & Bo C. Herlin"
 date: "2026-10-08"
 abstract: |
-  Dimensional constraints generate the Laurent-monomial table $A_{r,k}$
-  for $(a,b,c)=(L,R,1/C)$. Minimizing the sum of absolute exponents
-  selects its staircase and gives coefficients at every derivative order.
-  Substituting $D=\mathrm i\omega$ yields the corresponding phasor
-  factors and finite sums.
+  Dimensional constraints give a table of admissible ODE coefficients.
+  Minimizing absolute integer exponents selects a staircase with
+  recurrence $A_{k+2}=LC\,A_k$. Finite sums assemble higher-order
+  equations, and $D=\mathrm i\omega$ gives their phasor form.
 keywords:
   - ordinary differential equations
   - coefficient synthesis
@@ -24,49 +23,41 @@ keywords:
 
 # Deriving the coefficient family
 
-Use the template $aD^2y+bDy+cy=f$ from
-[*The ODE Template and Its Domain Equivalents*][template], with
-$D=d/dt$ and constant $a,b,c>0$. Let $T$ be the time dimension and
-$U=[c]$, taken as independent dimensions.
-Equality of term dimensions gives
+Start with $aD^2y+bDy+cy=f$ from [the ODE template][template], where
+$D=d/dt$ and $a,b,c>0$ are constants. With independent dimensions
+$U=[c]$ and time $T$, equal term dimensions require
 $$
 [a]=UT^2,\qquad [b]=UT,\qquad [c]=U.
 $$
-A coefficient multiplying $D^ky$ must therefore have dimension $UT^k$.
-Seek it as a monomial $a^p b^q c^r$. Its dimensions are
-$U^{p+q+r}T^{2p+q}$, so the exponents must satisfy
+A coefficient of $D^ky$ must have dimension $UT^k$. For a monomial
+$a^p b^q c^r$, this means
 $$
 p+q+r=1,\qquad 2p+q=k.
 $$
-Solving for $p$ and $q$ gives, up to a dimensionless multiplier,
+Solving gives the family, up to a dimensionless multiplier,
 \begin{equation}
 \boxed{A_{r,k}(a,b,c)=a^{k-1+r}b^{2-k-2r}c^r.}
 \label{eq:family}
 \end{equation}
-We take $r,k\in\mathbb Z$, so these are Laurent monomials: integer powers
-may be positive, zero or negative. Dimension matching also permits real
-$r$; integrality is the chosen algebraic class.
+We choose integer $r,k$: the powers may be positive, zero or negative.
+Dimensions alone also allow real $r$; the integer restriction defines the
+Laurent-monomial class used here.
 
-For $(a,b,c)=(L,R,1/C)$, equation \eqref{eq:family} becomes
+With $(a,b,c)=(L,R,1/C)$,
 \begin{equation}
 \boxed{A_{r,k}=L^{k-1+r}R^{2-k-2r}C^{-r}.}
 \label{eq:lrc}
 \end{equation}
-For example, at $k=3$ the choices $r=0,-1,-2$ give
-$$
-\frac{L^2}{R},\qquad LRC,\qquad R^3C^2.
-$$
-The two dimensional constraints leave one exponent free. They determine
-a family of coefficients for each order; a selection rule chooses a member.
+For example, $k=3$ and $r=0,-1,-2$ give $L^2/R$, $LRC$ and $R^3C^2$.
+Dimensions leave one exponent free; selecting a coefficient needs another rule.
 
 \newpage
 
 # The coefficient table
 
-Table \ref{tab:lattice} displays equation \eqref{eq:lrc} in two panels.
-Boxed entries mark the staircase derived in the next section. The ODE
-uses $k\geq0$; negative columns extend the dimension rule to repeated
-integrals, whose time factors are $T^{-k}$.
+Table \ref{tab:lattice} lists \eqref{eq:lrc}; boxes mark the staircase
+selected in Section 3. ODEs use $k\geq0$. Negative columns extend the
+dimension rule to repeated integrals, with time factors $T^{-k}$.
 
 \begin{table}[htbp]
 \centering
@@ -104,182 +95,152 @@ $-3$ & $\frac{R^{7}C^{3}}{L^{3}}$ & $\frac{R^{6}C^{3}}{L^{2}}$ & $\frac{R^{5}C^{
 \end{table}
 \FloatBarrier
 
-The whole table follows from two ratios:
+Two ratios generate the table:
 \begin{equation}
 A_{r,k+1}=\frac LR A_{r,k},\qquad
 A_{r-1,k}=\frac{R^2C}{L}A_{r,k}.
 \label{eq:steps}
 \end{equation}
-Thus one step right contributes a time factor, while one step down
-contributes a dimensionless factor.
+A step right contributes a time factor; a step down is dimensionless.
 
 \newpage
 
-# Selecting the stairs
+# Selecting the staircase
 
-Choose the integer $r$ that minimizes the sum of absolute exponents
-in $(L,R,C)$:
+Minimize the sum of absolute exponents in the declared basis $(L,R,C)$:
 $$
 F_k(r)=\lvert k-1+r\rvert+\lvert2-k-2r\rvert+\lvert r\rvert.
 $$
-If two choices tie, choose the one with a nonnegative exponent of $R$.
-The result is
+Break ties by choosing a nonnegative exponent of $R$. Then
 \begin{equation}
 \boxed{r_k=\left\lfloor\frac{2-k}{2}\right\rfloor
 =1-\left\lceil\frac{k}{2}\right\rceil.}
 \label{eq:stairs}
 \end{equation}
-To see why, the triangle inequality gives
+Indeed, the triangle inequality gives
 $$
 F_k(r)\geq\lvert k-1\rvert+\lvert2-k-2r\rvert.
 $$
 The last term is at least $0$ for even $k$ and $1$ for odd $k$.
-The choice \eqref{eq:stairs} attains this lower bound and makes the
-exponent of $R$ equal to $0$ or $1$, respectively. It therefore satisfies
-both the minimum and the tie rule. This simplicity criterion refers to
-the declared parameter basis.
+The chosen $r_k$ attains this bound and gives those same nonnegative
+exponents of $R$, satisfying the minimum and tie rule.
 
-![The stairs $r=r_k$. Each horizontal pair uses one value of $r$; the next pair is one row lower. The boxed entries in Table \ref{tab:lattice} follow this path.](figures/staircase.pdf){#fig:stairs width=95%}
+![The selected staircase $r=r_k$. Each pair of columns shares one row; the next pair is one row lower.](figures/staircase.pdf){#fig:stairs width=95%}
 
 \FloatBarrier
 
-Set $A_k=A_{r_k,k}$. Substituting $k=2n$ and $k=2n+1$ into
-\eqref{eq:lrc} yields
+Set $A_k=A_{r_k,k}$. Substitution gives
 \begin{equation}
 \boxed{A_{2n}=L^nC^{n-1},\qquad A_{2n+1}=R(LC)^n,}
-\quad n\in\mathbb Z.
+\quad n\in\mathbb Z,
 \label{eq:parity}
 \end{equation}
-Consequently,
+and therefore
 \begin{equation}
 \boxed{A_{k+2}=LC\,A_k,\qquad A_0=\frac1C,\quad A_1=R.}
 \label{eq:recurrence}
 \end{equation}
-Every second coefficient is obtained by multiplying by $LC$. The even
-and odd orders are two interleaved geometric sequences.
+The even and odd coefficients are two geometric sequences. Together they
+begin $1/C,R,L,LRC,L^2C,L^2RC^2,L^3C^2$.
 
 # Assembling an ODE
 
-For an integer $N\geq1$, the staircase coefficients define
+For integer $N\geq1$, define
 \begin{equation}
-P_N(D)y=0,\qquad P_N(D)=\sum_{k=0}^{N}A_kD^k.
+P_N(D)y=f,\qquad P_N(D)=\sum_{k=0}^N A_kD^k.
 \label{eq:ode}
 \end{equation}
-The first seven coefficients, in ascending derivative order, are
+In the original symbols,
 $$
-(A_0,\ldots,A_6)=
-\left(\frac1C,\ R,\ L,\ LRC,\ L^2C,\ L^2RC^2,\ L^3C^2\right).
+A_{2n}=a^nc^{1-n},\qquad A_{2n+1}=b(a/c)^n,\qquad
+A_{k+2}=\frac ac A_k.
 $$
-In the original reference symbols the same rule is
-$$
-A_{2n}=a^nc^{1-n},\qquad A_{2n+1}=b(a/c)^n,
-\qquad A_{k+2}=\frac ac A_k.
-$$
-In particular, the coefficient of $D^3$ is $A_3=ab/c$, and direct
-multiplication shows
+The cubic factors as
 \begin{equation}
 \frac{ab}{c}D^3+aD^2+bD+c
 =(bD+c)\left(1+\frac acD^2\right).
 \label{eq:cubic}
 \end{equation}
-More generally, pairing adjacent orders gives, for $m\geq0$,
+Its coefficient $ab/c=LRC$ is used in the signed-work calculation of
+[*Energy Ledgers for Forced Harmonic ODEs*][energy], Sections 2--3.
+Pairing adjacent orders gives
 \begin{equation}
-P_{2m+1}(D)=(c+bD)\sum_{j=0}^{m}\left(\frac acD^2\right)^j.
+P_{2m+1}(D)=(c+bD)\sum_{j=0}^m\left(\frac acD^2\right)^j,
+\qquad m\geq0.
 \label{eq:odd}
 \end{equation}
-For even order $2m$ with $m\geq1$, add $a^mc^{1-m}D^{2m}$ to
-$P_{2m-1}(D)$. These are finite polynomial identities; no convergence
-assumption is needed.
+For $m\geq1$, obtain $P_{2m}$ by adding $a^mc^{1-m}D^{2m}$ to
+$P_{2m-1}$. These finite identities require no convergence assumption.
 
-## Choosing other coefficients
+## Other selections
 
-To retain the full family, introduce
-$$
-S=\frac{b^2}{a},\qquad \tau=\frac ab,\qquad
-\rho=\frac{b^2}{ac}.
-$$
-Then $[S]=U$, $[\tau]=T$ and $[\rho]=1$, and
+Let $S=b^2/a$, $\tau=a/b$ and $\rho=b^2/(ac)$, with dimensions
+$U,T,1$, respectively. Then
 \begin{equation}
 A_{r,k}=S\tau^k\rho^{-r},\qquad
 B_k=\sum_{r\in\mathcal R_k}w_{r,k}A_{r,k}
 =S\tau^k\sum_{r\in\mathcal R_k}w_{r,k}\rho^{-r},
 \label{eq:synthesis}
 \end{equation}
-where $\mathcal R_k\subset\mathbb Z$ is finite and $w_{r,k}$ are
-dimensionless constants. Using $B_k$ in $\sum_{k=0}^N B_kD^ky=0$
-gives a finite synthesis from the table; its order is $N$ when $B_N\ne0$.
-The staircase is the choice $\mathcal R_k=\{r_k\}$ and $w_{r_k,k}=1$.
+where each $\mathcal R_k\subset\mathbb Z$ is finite and $w_{r,k}$ are
+real dimensionless constants. The resulting $Q(D)y=f$,
+$Q(s)=\sum_{k=0}^N B_ks^k$, has order $N$ if $B_N\ne0$.
+The staircase takes $\mathcal R_k=\{r_k\}$ and $w_{r_k,k}=1$;
+weighted sums retain other dimensionally admissible choices.
 
-Dimension matching constructs the table. Minimizing integer exponents
-selects the stairs, and the stairs give a coefficient at every order
-through one recurrence. Finite weighted sums retain the other choices.
+# Phasor form
 
-# Using phasors
-
-With the convention $\operatorname{Re}(\widehat y e^{\mathrm i\omega t})$,
-$\omega>0$, from [*The ODE Template and Its Domain Equivalents*][template],
-replace $D$ by $\mathrm i\omega$. For real coefficients $B_k$ and
-$Q(s)=\sum_{k=0}^N B_ks^k$, $Q(D)y=f$ becomes
+Use $y(t)=\operatorname{Re}(\widehat y e^{\mathrm i\omega t})$,
+$\mathrm i^2=-1$, $\omega>0$. Substituting $D=\mathrm i\omega$ gives
 \begin{equation}
 \boxed{Q(\mathrm i\omega)\widehat y=\widehat f,\qquad
 Q(\mathrm i\omega)=\sum_{k=0}^N B_k(\mathrm i\omega)^k.}
 \label{eq:phasor-equation}
 \end{equation}
-If $Q(\mathrm i\omega)\ne0$, then
-$\widehat y=\widehat f/Q(\mathrm i\omega)$. For the homogeneous
-equation, a nonzero phasor requires $Q(\mathrm i\omega)=0$.
+Division requires $Q(\mathrm i\omega)\ne0$; a nonzero homogeneous phasor
+requires $Q(\mathrm i\omega)=0$. These are harmonic components, with
+initial data for the full solution specified separately.
 
-## The table and stairs in phasor form
+## Frequency factors
 
-Multiply column $k$ of Table \ref{tab:lattice} by
-$(\mathrm i\omega)^k$. Each entry contributes
+Multiply column $k$ of the table by $(\mathrm i\omega)^k$:
 \begin{equation}
-\Phi_{r,k}(\omega)
-=A_{r,k}(\mathrm i\omega)^k
+\Phi_{r,k}=A_{r,k}(\mathrm i\omega)^k
 =S\rho^{-r}(\mathrm i\omega\tau)^k.
 \label{eq:phasor-lattice}
 \end{equation}
 The factors $\mathrm i^k$ cycle through $1,\mathrm i,-1,-\mathrm i$.
-Negative columns use the same rule for the harmonic antiderivative,
-with integration constants specified separately. Weighted sums of
-these entries give $Q(\mathrm i\omega)$.
-
-For the staircase, write $\Phi_k=A_k(\mathrm i\omega)^k$.
-Equation \eqref{eq:parity} gives
+For negative $k$, this gives the harmonic antiderivative; integration
+constants are separate. On the staircase,
 \begin{equation}
 \Phi_{2n}=\frac1C(-\omega^2LC)^n,\qquad
 \Phi_{2n+1}=\mathrm i\omega R(-\omega^2LC)^n,
 \quad n\in\mathbb Z.
 \label{eq:phasor-stairs}
 \end{equation}
-Hence $\Phi_{k+2}=-\omega^2LC\,\Phi_k$: every two orders reverse
-the sign and multiply the magnitude by $\omega^2LC$. Pairing terms
-as in \eqref{eq:odd} yields
+Thus $\Phi_{k+2}=-\omega^2LC\,\Phi_k$: every two orders reverse the sign
+and multiply the magnitude by $\omega^2LC$. Pairing terms gives
 \begin{equation}
 \boxed{P_{2m+1}(\mathrm i\omega)
 =\left(\frac1C+\mathrm i\omega R\right)
-\sum_{n=0}^{m}(-\omega^2LC)^n,\qquad m\geq0.}
+\sum_{n=0}^m(-\omega^2LC)^n,\qquad m\geq0.}
 \label{eq:phasor-sum}
 \end{equation}
-For example,
-$P_3(\mathrm i\omega)=(1/C+\mathrm i\omega R)(1-\omega^2LC)$.
-The sum is finite, so no restriction $\omega^2LC<1$ is needed.
+In particular, $P_3(\mathrm i\omega)=(1/C+\mathrm i\omega R)(1-\omega^2LC)$.
+The finite sum is valid at every $\omega>0$.
 
-## Expressing the equation using a derivative
+## Using the derivative as terminal variable
 
-If $u=Dy$, then $\widehat u=\mathrm i\omega\widehat y$.
-The multiplier relating $\widehat u$ to $\widehat f$ is therefore
+For $u=Dy$, $\widehat u=\mathrm i\omega\widehat y$, so
 \begin{equation}
 H(\omega)=\frac{Q(\mathrm i\omega)}{\mathrm i\omega}
-=\sum_{k=0}^N B_k(\mathrm i\omega)^{k-1},
-\qquad \widehat f=H(\omega)\widehat u.
+=\sum_{k=0}^N B_k(\mathrm i\omega)^{k-1},\qquad
+\widehat f=H(\omega)\widehat u.
 \label{eq:phasor-derivative}
 \end{equation}
-The exponent is $k$ for $y$ and $k-1$ for $Dy$. Terminal ratios of
-this form are combined in [*Interconnecting Series and Parallel ODEs*][interconnect],
-Section 3. The signed-work calculation for the selected $A_3=LRC$
-is developed in [*Energy Ledgers for Forced Harmonic ODEs*][energy],
-Parts 2 and 3.
+The exponent is $k$ for $y$ and $k-1$ for $Dy$.
+[*Interconnecting Series and Parallel ODEs*][interconnect], Section 3,
+combines these terminal ratios through common-variable and sum constraints.
 
 # References {-}
 
